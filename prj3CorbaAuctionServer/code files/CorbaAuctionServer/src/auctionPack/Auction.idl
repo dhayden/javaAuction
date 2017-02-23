@@ -1,0 +1,26 @@
+module auction {
+   interface Auction  {
+        exception InvalidOfferException { string description; };
+	exception InvalidBidException { string description; };
+	exception InvalidSellException { string description; };
+	exception InvalidStatusException { string description; };
+
+	typedef struct AuctionStatus {   
+	   string user; 
+           string item; 
+	   float currentPrice;
+	} Status;
+
+	boolean offer(in string sellerId, in string item, in float initPrice) raises (InvalidOfferException) ;
+	boolean sell(in string itemName)  raises (InvalidSellException);
+	string viewHighBidder(in string itemName)
+			raises (InvalidSellException);
+	boolean bid(in string userId, in float bidPrice)
+			raises (InvalidBidException);
+
+	string viewBidStatus(in string userId)
+         		raises (InvalidBidException);
+	
+	Status viewAuctionStatus()  raises (InvalidStatusException);
+  };
+};
